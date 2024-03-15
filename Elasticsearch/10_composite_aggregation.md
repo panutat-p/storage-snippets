@@ -13,7 +13,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregati
 https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-composite-aggregation.html#_pagination
 
 
-```jsonl
+```sh
 GET /fruits/_search
 {
   "size": 0,
@@ -32,7 +32,7 @@ GET /fruits/_search
 }
 ```
 
-```json lines
+```sh
 GET /fruits/_search
 {
   "size": 0,
