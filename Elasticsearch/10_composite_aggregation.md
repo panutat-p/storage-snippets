@@ -12,6 +12,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregati
 
 https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-composite-aggregation.html#_pagination
 
+## Count each color
 
 ```sh
 GET /fruits/_search
