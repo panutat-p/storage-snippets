@@ -17,6 +17,10 @@ GET /_cat/indices/fruits*?v=true&s=index
 https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html
 
 ```sh
+DELETE /fruits
+```
+
+```sh
 PUT /fruits
 {
   "settings": {
