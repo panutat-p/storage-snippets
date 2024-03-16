@@ -16,7 +16,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregati
 | `size` | Limit the number of top terms returned by the terms aggregation. If you set size to 10, Elasticsearch will return the top 10 terms ordered by the document count. |
 | `shard_size` | Determines how many terms the coordinating node will request from each shard. A higher shard_size will improve the accuracy of the terms aggregation at the cost of using more memory. This is because a larger shard_size means more terms are returned from each shard to the coordinating node,  which then has more terms to work with when calculating the final top terms. |
 
-## Simple
+### terms aggregation
 
 ```sh
 GET /fruits/_search
@@ -26,6 +26,31 @@ GET /fruits/_search
     "colors": {
       "terms": {
         "size": 10,
+        "field": "color"
+      }
+    }
+  }
+}
+```
+
+### filter then terms aggregation
+
+```sh
+GET /fruits/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "terms": { "color": ["blue", "red", "green", "orange", "purple"] } }
+      ]
+    }
+  },
+  "aggs": {
+    "colors": {
+      "terms": {
+        "size": 5,
+        "shard_size": 5,
         "field": "color"
       }
     }
