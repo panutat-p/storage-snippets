@@ -1,5 +1,37 @@
 # CREATE TABLE
 
+## AUTO INCREMENT
+
+* `LAST_INSERT_ID()` is unique to each session and will not be affected by other concurrent insert operations
+* Only work for an INSERT
+* an UPDATE that does not create a new record, there is no new AUTO_INCREMENT value generated
+
+```sql
+SELECT LAST_INSERT_ID() AS id;
+```
+
+```sql
+SELECT AUTO_INCREMENT 
+FROM information_schema.tables
+WHERE table_schema = 'poc'
+AND table_name = 'fruit';
+```
+
+## Constraints
+
+```sql
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE
+FROM information_schema.TABLE_CONSTRAINTS
+WHERE TABLE_SCHEMA = 'poc'
+AND TABLE_NAME = 'fruit'
+```
+
+```sql
+SET FOREIGN_KEY_CHECKS=0;
+TRUNCATE TABLE fruit;
+SET FOREIGN_KEY_CHECKS=1;
+```
+
 ## Simple
 
 ```sql

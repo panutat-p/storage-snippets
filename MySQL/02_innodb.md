@@ -1,5 +1,11 @@
 # InnoDB Storage Engine
 
+```sql
+SHOW VARIABLES LIKE 'default_storage_engine';
+SHOW VARIABLES LIKE 'character_set_database';
+SHOW VARIABLES LIKE 'collation_database';
+```
+
 ## Character size
 
 >  MySQL
