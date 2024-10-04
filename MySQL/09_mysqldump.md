@@ -34,12 +34,14 @@ ls /opt/homebrew/bin/mysqldump
 
 Dump only one database
 ```sh
+mkdir $HOME/mysqldump
+
 mysqldump demo \
--h=localhost \
+-h=127.0.0.1 \
 -u=root \
 -P=1234 \
 --lock-all-tables \
-> demo.sql
+> $HOME/mysqldump/demo.sql
 ```
 
 Options
