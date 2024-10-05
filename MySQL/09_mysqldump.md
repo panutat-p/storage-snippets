@@ -32,7 +32,7 @@ ls /opt/homebrew/bin/mysqldump
 
 ## Export
 
-Dump only one database
+Dump one database
 ```sh
 mkdir $HOME/mysqldump
 
@@ -40,13 +40,28 @@ mysqldump demo \
 -h=127.0.0.1 \
 -u=root \
 -P=1234 \
+--add-drop-table \
+--add-drop-trigger \
 --lock-all-tables \
 > $HOME/mysqldump/demo.sql
 ```
 
 Options
+* `--add-drop-table`
+* `--add-drop-trigger`
 * `--lock-all-tables`
 * `--no-create-db`
 * `--no-create-info`
 * `--no-data`
 * `--single-transaction`
+
+## Import
+
+```sh
+mysql demo \
+-h=127.0.0.1 \
+-p=3306 \
+-u=root \
+-P=1234 \
+< $HOME/mysqldump/demo.sql
+```
