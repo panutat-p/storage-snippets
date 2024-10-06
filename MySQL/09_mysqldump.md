@@ -14,20 +14,12 @@ brew install mysql-client
 
 Mac Intel
 ```sh
-export PATH="$PATH:/usr/local/opt/mysql-client/bin"
+export PATH=$PATH:/usr/local/opt/mysql-client/bin
 ```
 
 Mac Arm
 ```sh
-export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
-```
-
-```sh
-ls /opt/homebrew/opt/mysql-client/bin
-```
-
-```sh
-ls /opt/homebrew/bin/mysqldump
+export PATH=$PATH:/opt/homebrew/opt/mysql-client/bin
 ```
 
 ## Export
