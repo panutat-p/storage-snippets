@@ -1,4 +1,43 @@
-# Pessimistic Locking
+# Locking
+
+https://dev.mysql.com/doc/refman/8.4/en/innodb-locking.html
+
+## Shared locks
+
+Permits the transaction that holds the lock to read a row.
+
+```sql
+START TRANSACTION;
+SELECT id, name, price FROM fruit WHERE name = 'apple' LOCK IN SHARE MODE;
+DO SLEEP(10);
+COMMIT;
+```
+
+## Exclusive locks
+
+Permits the transaction that holds the lock to update or delete a row.
+
+```sql
+START TRANSACTION;
+INSERT INTO fruit (name, color) VALUES ('apple', 'red');
+COMMIT;
+```
+
+```sql
+START TRANSACTION;
+UPDATE fruit SET color = 'green' WHERE name = 'apple';
+COMMIT;
+```
+
+```sql
+START TRANSACTION;
+DELETE FROM fruit WHERE name = 'apple';
+COMMIT;
+```
+
+## Record locks
+
+Prevents any other transaction from inserting, updating, or deleting rows
 
 ```sql
 START TRANSACTION;
@@ -6,55 +45,6 @@ SELECT id, name, price FROM fruit WHERE name = 'apple' FOR UPDATE;
 DO SLEEP(10);
 COMMIT;
 ```
-
-## Transaction Isolation Level
-
-* `READ COMMITTED`: Lower isolation, allows non-repeatable reads and phantom reads, avoids gap locks.
-* `REPEATABLE READ`: Higher isolation, prevents non-repeatable reads, allows phantom reads.
-* `SERIALIZABLE`: Highest isolation, prevents dirty reads, non-repeatable reads, and phantom reads, but can significantly reduce concurrency.
-
-### READ COMMITTED
-Isolation Level: Lower
-Behavior:
-Each query within a transaction sees only committed data from other transactions.
-Does not see uncommitted changes (no dirty reads).
-Allows non-repeatable reads: if a row is read twice in the same transaction, it might see different data if another transaction modifies and commits the row in between.
-Allows phantom reads: new rows that match the query condition can appear if another transaction inserts them after the initial read.
-Use Case: Suitable for applications where consistency is important but strict repeatability is not required, and where avoiding gap locks is beneficial.
-### REPEATABLE READ
-Isolation Level: Higher
-Behavior:
-Ensures that if a transaction reads a row, it will see the same data if it reads that row again, even if other transactions modify and commit the data (prevents non-repeatable reads).
-Prevents dirty reads.
-Prevents non-repeatable reads.
-Allows phantom reads: new rows that match the query condition can appear if another transaction inserts them after the initial read.
-Use Case: Suitable for applications where consistency and repeatability are important, but where some level of concurrency is still desired.
-### SERIALIZABLE
-Isolation Level: Highest
-Behavior:
-Ensures complete isolation from other transactions.
-Prevents dirty reads, non-repeatable reads, and phantom reads.
-Transactions are executed in a way that they appear to be serialized, one after the other.
-Uses range locks to prevent other transactions from inserting, updating, or deleting rows that would affect the result set.
-Use Case: Suitable for applications where the highest level of consistency is required, and where performance and concurrency can be sacrificed for strict isolation.
-
-```sql
-SELECT @@transaction_isolation;
-```
-
-### READ COMMITTED (default in many databases)
-
-```sql
-SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
-```
-
-* Lock only the specific rows and avoid gap locking
-* But also uses next-key locks which means it locks the index range scanned
-* Does not prevent all forms of conflicts
-* Does not prevent non-repeatable reads or phantom reads
-
-> Non-repeatable reads occur when a transaction reads the same row twice and gets different results each time
-> because another transaction has updated the row in the meantime.
 
 ## Gap Locking
 
