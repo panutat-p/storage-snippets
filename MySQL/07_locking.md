@@ -52,10 +52,6 @@ https://dev.mysql.com/doc/refman/8.4/en/innodb-locking.html#innodb-gap-locks
 
 https://tanishiking.hashnode.dev/avoid-deadlock-caused-by-a-conflict-of-transactions-that-accidentally-acquire-gap-lock-in-innodb-a114e975fd72
 
-```sql
-SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
-```
-
 * In certain circumstances, the `SELECT ... FOR UPDATE statement` can lock more than just the rows it retrieves
 * MySQL acquires exclusive next-key locks for the rows it retrieves
 * The next-key lock is a combination of a record lock on the index record and a gap lock on the gap before the index record

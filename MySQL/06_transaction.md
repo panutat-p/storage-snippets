@@ -30,6 +30,10 @@ SELECT @@global.transaction_isolation;
 
 ### READ COMMITTED
 
+```sql
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
+```
+
 * Isolation Level: Lower
 * Each query within a transaction sees only committed data from other transactions.
 * Does not see uncommitted changes (no dirty reads).
@@ -39,6 +43,10 @@ SELECT @@global.transaction_isolation;
 
 ### REPEATABLE READ
 
+```sql
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+```
+
 * Isolation Level: Higher
 * Ensures that if a transaction reads a row, it will see the same data if it reads that row again, even if other transactions modify and commit the data (prevents non-repeatable reads).
 * Prevents dirty reads.
@@ -47,6 +55,10 @@ SELECT @@global.transaction_isolation;
 * Suitable for applications where consistency and repeatability are important, but where some level of concurrency is still desired.
 
 ### SERIALIZABLE
+
+```sql
+SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+```
 
 * Isolation Level: Highest
 * Ensures complete isolation from other transactions.
